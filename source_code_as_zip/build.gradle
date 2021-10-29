@@ -1,17 +1,18 @@
 task createSourceCodeAsZip(type: Zip){
-  from("./"){
-    // project root directory where build.gradle is placed
-    include "*" // first level directories
-    include "*/*" // nested directories
-    into("project_name")
+  classifier = 'src'
+  archiveName 'project_name.zip'
+  from projectDir
+  
+  include 'src/**/*'
+  include 'lib/**/*'
+  include 'gradle/**/*'
+  include '*.gradle'
+  include 'gradle.*'
+  include 'gradlew.*'
+  include 'HELP.md'
+  doLast{
+    println "Path to zip: $archivePath.path"
   }
-  from("lib"){
-    // add external libraries
-    include "custom_reporting.jar"
-    into("project_name/lib/")
-  }
-  archiveName 'project_name_source_code.zip'
-  destinationDir(file('build/distributions'))
 }
 
 publishing {

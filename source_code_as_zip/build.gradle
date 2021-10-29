@@ -1,4 +1,4 @@
-task createZip(type: Zip){
+task createSourceCodeAsZip(type: Zip){
   from("./"){
     // project root directory where build.gradle is placed
     include "*" // first level directories
@@ -17,7 +17,9 @@ task createZip(type: Zip){
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
+            artifact(createSourceCodeAsZip){
+              extension 'zip'
+            }
         }
     }
     repositories {

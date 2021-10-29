@@ -1,0 +1,19 @@
+task createZip(type: Zip){
+  
+  from("./"){
+    // project root directory where build.gradle is placed
+    include "*" // first level directories
+    include "*/*" // nested directories
+    into("project_name")
+  }
+  
+  from("lib"){
+    // add external libraries
+    include "custom_reporting.jar"
+    into("project_name/lib/")
+  }
+  
+  archiveName 'project_name_source_code.zip'
+  destinationDir(file('build/distributions'))
+  
+}
